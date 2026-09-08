@@ -2,7 +2,7 @@
 	{
 		"name": "car-system",
 		"year": 2026,
-		"description": "智能销售培训助手系统，整合RAG问答、实时Web搜索和智能Agent三大核心技术",
+		"description": "智能销售培训助手系统，整合RAG问答、实时Web搜索和智能Agent三大核心技术（学习使用）",
 		"image": "/images/projects/car-system.svg",
 		"url": "",
 		"tags": [
@@ -14,7 +14,7 @@
 	{
 		"name": "EvalFlow-Pro",
 		"year": 2026,
-		"description": "一个用于生成 AI 辅助绩效评估报告 的 Web 系统。核心流程：用户登录 → 创建项目 → 上传材料 → 逐步执行工作流 → 生成内容 → 支持多模型对比、人工复核、版本历史，并导出为 Word / PDF。后台管理台可管理 Prompt、知识库与模型配置。",
+		"description": "一个用于生成 AI 辅助绩效评估报告 的 Web 系统。核心流程：用户登录 → 创建项目 → 上传材料 → 逐步执行工作流 → 生成内容 → 支持多模型对比、人工复核、版本历史，并导出为 Word / PDF。后台管理台可管理 Prompt、知识库与模型配置。（个人开发）",
 		"image": "/images/projects/evalflow-pro.svg",
 		"url": "",
 		"tags": [
@@ -29,44 +29,70 @@
 	{
 		"name": "Agentic-Rl",
 		"year": 2026,
-		"description": "",
+		"description": "一个作为自己摸索学习开发的Agentic Rl项目",
 		"image": "/images/projects/agentic-rl.svg",
 		"url": "",
-		"tags": [],
+		"tags": [
+			"vLLM",
+			"FSDP",
+			"PyTorch",
+			"veRL",
+			"PPO+GAE/GRPO"
+		],
 		"github": "https://github.com/linnanjun007-crypto/Agentic-Rl"
 	},
 	{
 		"name": "data_engineer",
 		"year": 2026,
-		"description": "通过自然语言处理和语义检索，将用户的自然语言查询转换为准确的 SQL 语句，也可批量处理生成。",
+		"description": "通过自然语言处理和语义检索，将用户的自然语言查询转换为准确的 SQL 语句，也可批量处理生成。（二次开发）",
 		"image": "/images/projects/data-engineer.svg",
 		"url": "",
-		"tags": [],
+		"tags": [
+			"FastAPI",
+			"OpenAI Agents SDK",
+			"RAG",
+			"LanceDB"
+		],
 		"github": "https://github.com/linnanjun007-crypto/data_engineer"
 	},
 	{
 		"name": "snow_blog",
 		"year": 2026,
-		"description": "开学兴起要做博客网站，做成了社区网站，也是目前我唯一的Java后端springboot项目，这个项目也是我的启蒙项目，对我意义挺大的，因为做得早，ai还不太厉害，代码大都是手敲的，在这里也要感谢xxx。",
+		"description": "开学兴起要做博客网站，做成了社区网站，也是目前我唯一的Java后端springboot项目，这个项目也是我的启蒙项目，对我意义挺大的，因为做得早，ai还不太厉害，代码大都是手敲的，在这里也要感谢xxx。（个人开发）",
 		"image": "/images/projects/snow-blog.svg",
 		"url": "",
-		"tags": [],
+		"tags": [
+			"Springboot",
+			"vue",
+			"mysql",
+			"redis",
+			"docker"
+		],
 		"github": "https://github.com/linnanjun007-crypto/snow_blog"
 	},
 	{
 		"name": "FinMind",
 		"year": 2026,
-		"description": "与学校团队正在开发的一个算是想给同学们使用的项目，不知道是否能做成........",
+		"description": "与学校团队正在开发的一个算是想给同学们使用的项目，不知道是否能做成........（团队开发）",
 		"image": "/images/projects/finmind.svg",
 		"url": "https://finmind.gduf.top",
-		"tags": []
+		"tags": [
+			"RAG",
+			"FastAPI",
+			"pgvector"
+		]
 	},
 	{
 		"name": "PropellTrader",
 		"year": 2026,
-		"description": "",
+		"description": "一个面向金融新闻的多智能体投资决策分析平台（二次开发）",
 		"image": "/images/projects/propell-trader.svg",
 		"url": "",
-		"tags": []
+		"tags": [
+			"Neo4j",
+			"Milvus",
+			"Redis"
+		],
+		"github": "https://github.com/linnanjun007-crypto/PropellTrader"
 	}
 ]
