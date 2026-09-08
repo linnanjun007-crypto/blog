@@ -15,6 +15,7 @@ export interface Project {
 	url: string
 	tags: string[]
 	github?: string
+	githubOld?: string
 	npm?: string
 }
 
@@ -172,6 +173,13 @@ export function ProjectCard({ project, isEditMode = false, onUpdate, onDelete }:
 						/>
 						<input
 							type='url'
+							value={localProject.githubOld || ''}
+							onChange={e => handleFieldChange('githubOld', e.target.value || undefined)}
+							placeholder='GitHub 旧仓库 URL（可选）'
+							className='bg-secondary/10 border-secondary/20 flex-1 rounded-lg border px-3 py-1.5 text-sm focus:outline-none'
+						/>
+						<input
+							type='url'
 							value={localProject.npm || ''}
 							onChange={e => handleFieldChange('npm', e.target.value || undefined)}
 							placeholder='NPM URL（可选）'
@@ -195,7 +203,16 @@ export function ProjectCard({ project, isEditMode = false, onUpdate, onDelete }:
 								target='_blank'
 								rel='noopener noreferrer'
 								className='bg-card hover:bg-bg rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors'>
-								GitHub
+								{localProject.githubOld ? 'GitHub（新）' : 'GitHub'}
+							</Link>
+						)}
+						{localProject.githubOld && (
+							<Link
+								href={localProject.githubOld}
+								target='_blank'
+								rel='noopener noreferrer'
+								className='bg-card hover:bg-bg rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors'>
+								GitHub（旧）
 							</Link>
 						)}
 						{localProject.npm && (

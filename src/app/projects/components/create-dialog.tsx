@@ -22,6 +22,7 @@ export default function CreateDialog({ project, onClose, onSave }: CreateDialogP
 		description: '',
 		tags: [],
 		github: undefined,
+		githubOld: undefined,
 		npm: undefined
 	})
 	const [showImageDialog, setShowImageDialog] = useState(false)
@@ -40,6 +41,7 @@ export default function CreateDialog({ project, onClose, onSave }: CreateDialogP
 				description: '',
 				tags: [],
 				github: undefined,
+				githubOld: undefined,
 				npm: undefined
 			})
 			setTagsInput('')
@@ -152,6 +154,13 @@ export default function CreateDialog({ project, onClose, onSave }: CreateDialogP
 						value={formData.github || ''}
 						onChange={e => setFormData({ ...formData, github: e.target.value || undefined })}
 						placeholder='GitHub URL（可选）'
+						className='w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:outline-none'
+					/>
+					<input
+						type='url'
+						value={formData.githubOld || ''}
+						onChange={e => setFormData({ ...formData, githubOld: e.target.value || undefined })}
+						placeholder='GitHub 旧仓库 URL（可选）'
 						className='w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:outline-none'
 					/>
 					<input
