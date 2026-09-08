@@ -60,5 +60,13 @@
 		"image": "/images/projects/finmind.svg",
 		"url": "https://finmind.gduf.top",
 		"tags": []
+	},
+	{
+		"name": "PropellTrader",
+		"year": 2026,
+		"description": "",
+		"image": "/images/projects/propell-trader.svg",
+		"url": "",
+		"tags": []
 	}
 ]
