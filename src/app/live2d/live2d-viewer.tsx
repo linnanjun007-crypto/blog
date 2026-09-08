@@ -17,6 +17,7 @@ interface Live2DModelInstance {
 	width: number
 	height: number
 	scale: { set: (x: number, y: number) => void }
+	motion: (group: string, index?: number) => unknown
 }
 
 const CDN_SCRIPTS = [
@@ -26,6 +27,21 @@ const CDN_SCRIPTS = [
 ]
 
 const MODEL_URL = '/live2d/haru.model3.json'
+
+/** Haru 模型的动作组（对应 haru.model3.json 的 Motions 分组） */
+const MOTION_GROUPS = [
+	{ key: 'Idle', label: '待机' },
+	{ key: 'Tap', label: '点击' },
+	{ key: 'Flick', label: '轻扫' },
+	{ key: 'FlickRight', label: '右扫' },
+	{ key: 'FlickLeft', label: '左扫' },
+	{ key: 'Flick3', label: '轻扫③' },
+	{ key: 'Shake', label: '摇晃' }
+] as const
+
+const SCALE_MIN = 0.3
+const SCALE_MAX = 2
+const SCALE_STEP = 0.05
 
 function loadScript(src: string): Promise<void> {
 	return new Promise((resolve, reject) => {
@@ -44,8 +60,11 @@ function loadScript(src: string): Promise<void> {
 
 export default function Live2DViewer() {
 	const containerRef = useRef<HTMLDivElement>(null)
+	const modelRef = useRef<Live2DModelInstance | null>(null)
+	const baseFitRef = useRef(1)
 	const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
 	const [errorMsg, setErrorMsg] = useState<string>('')
+	const [scale, setScale] = useState(1)
 
 	useEffect(() => {
 		const container = containerRef.current
@@ -99,8 +118,10 @@ export default function Live2DViewer() {
 
 				// 自适应缩放：按模型实际尺寸适配容器，留约 8% 边距
 				const fit = Math.min(width / (model.width || 1), height / (model.height || 1)) * 0.92
+				baseFitRef.current = fit
 				model.scale.set(fit, fit)
 
+				modelRef.current = model
 				setStatus('ready')
 			} catch (err) {
 				setErrorMsg(err instanceof Error ? err.message : String(err))
@@ -114,15 +135,69 @@ export default function Live2DViewer() {
 			if (app !== null && typeof app === 'object' && 'destroy' in app && typeof app.destroy === 'function') {
 				app.destroy({ removeView: true })
 			}
+			modelRef.current = null
 			container.innerHTML = ''
 		}
 	}, [])
 
+	const handleScaleChange = (value: number) => {
+		setScale(value)
+		const model = modelRef.current
+		if (model) {
+			model.scale.set(baseFitRef.current * value, baseFitRef.current * value)
+		}
+	}
+
+	const handleMotion = (group: string) => {
+		const model = modelRef.current
+		if (!model) return
+		try {
+			model.motion(group)
+		} catch {
+			// 动作组不存在时忽略
+		}
+	}
+
+	const isReady = status === 'ready'
+
 	return (
-		<div className='relative aspect-square w-full overflow-hidden rounded-full'>
-			<div ref={containerRef} className='absolute inset-0 h-full w-full' />
-			{status === 'loading' && <div className='text-secondary absolute inset-0 flex items-center justify-center'>加载 Live2D 模型中…</div>}
-			{status === 'error' && <div className='absolute inset-0 flex items-center justify-center p-4 text-center text-red-500'>{errorMsg}</div>}
+		<div className='flex flex-col items-center gap-6'>
+			<div className='relative aspect-square w-full max-w-[420px] overflow-hidden rounded-full'>
+				<div ref={containerRef} className='absolute inset-0 h-full w-full' />
+				{status === 'loading' && <div className='text-secondary absolute inset-0 flex items-center justify-center'>加载 Live2D 模型中…</div>}
+				{status === 'error' && <div className='absolute inset-0 flex items-center justify-center p-4 text-center text-red-500'>{errorMsg}</div>}
+			</div>
+
+			{isReady && (
+				<div className='flex w-full max-w-[420px] flex-col gap-4'>
+					<label className='flex flex-col gap-2'>
+						<span className='text-secondary text-sm'>大小（{scale.toFixed(2)}×）</span>
+						<input
+							type='range'
+							min={SCALE_MIN}
+							max={SCALE_MAX}
+							step={SCALE_STEP}
+							value={scale}
+							onChange={(e) => handleScaleChange(Number(e.target.value))}
+							className='w-full'
+							style={{ accentColor: 'var(--color-brand)' }}
+						/>
+					</label>
+
+					<div className='flex flex-wrap justify-center gap-2'>
+						{MOTION_GROUPS.map((group) => (
+							<button
+								key={group.key}
+								type='button'
+								onClick={() => handleMotion(group.key)}
+								className='rounded-full border border-[var(--color-brand)] px-3 py-1 text-sm text-[var(--color-primary)] transition-colors hover:bg-[var(--color-brand)] hover:text-white'
+							>
+								{group.label}
+							</button>
+						))}
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }
