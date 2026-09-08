@@ -81,14 +81,6 @@
 		"offsetY": null,
 		"enabled": true
 	},
-	"likePosition": {
-		"width": 54,
-		"height": 54,
-		"order": 8,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
 	"hatCard": {
 		"width": 120,
 		"height": 120,
