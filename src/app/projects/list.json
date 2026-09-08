@@ -4,7 +4,8 @@
 		"year": 2026,
 		"description": "car-system，整合RAG问答、实时Web搜索和智能Agent三大核心技术",
 		"image": "",
-		"url": "https://github.com/linnanjun007-crypto/car",
+		"url": "",
+		"github": "https://github.com/linnanjun007-crypto/car",
 		"tags": [
 			"RAG",
 			"FastAPI"
