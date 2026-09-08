@@ -1,0 +1,9 @@
+name = "blog-like-api"
+main = "src/index.js"
+compatibility_date = "2025-03-25"
+
+# 把下面的 id 替换成你在 Cloudflare 后台创建的 KV Namespace 的 id。
+# 绑定名 LIKES 不要改，Worker 代码里就是读这个绑定。
+[[kv_namespaces]]
+binding = "LIKES"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"

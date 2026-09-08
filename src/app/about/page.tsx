@@ -7,6 +7,7 @@ import { useMarkdownRender } from '@/hooks/use-markdown-render'
 import { pushAbout, type AboutData } from './services/push-about'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+import LikeButton from '@/components/like-button'
 import GithubSVG from '@/svgs/github.svg'
 import initialData from './list.json'
 
@@ -178,6 +179,7 @@ export default function Page() {
 							<GithubSVG />
 						</motion.a>
 
+						<LikeButton slug='open-source' delay={0} />
 					</div>
 				</div>
 			</div>
