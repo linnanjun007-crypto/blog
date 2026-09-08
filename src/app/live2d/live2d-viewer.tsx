@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { motion } from 'motion/react'
 
 /** PIXI Application 实例（CDN 加载，无类型包） */
 interface PixiAppInstance {
@@ -169,34 +170,46 @@ export default function Live2DViewer() {
 			</div>
 
 			{isReady && (
-				<div className='flex w-full max-w-[420px] flex-col gap-4'>
-					<label className='flex flex-col gap-2'>
-						<span className='text-secondary text-sm'>大小（{scale.toFixed(2)}×）</span>
-						<input
-							type='range'
-							min={SCALE_MIN}
-							max={SCALE_MAX}
-							step={SCALE_STEP}
-							value={scale}
-							onChange={(e) => handleScaleChange(Number(e.target.value))}
-							className='w-full'
-							style={{ accentColor: 'var(--color-brand)' }}
-						/>
-					</label>
+				<motion.div
+					initial={{ opacity: 0, y: 12 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.35 }}
+					className='card relative flex w-full max-w-[420px] flex-col gap-5'>
+					<h2 className='font-averia text-xl text-linear'>Live2D</h2>
 
-					<div className='flex flex-wrap justify-center gap-2'>
-						{MOTION_GROUPS.map((group) => (
-							<button
-								key={group.key}
-								type='button'
-								onClick={() => handleMotion(group.key)}
-								className='rounded-full border border-[var(--color-brand)] px-3 py-1 text-sm text-[var(--color-primary)] transition-colors hover:bg-[var(--color-brand)] hover:text-white'
-							>
-								{group.label}
-							</button>
-						))}
+					<div>
+						<p className='text-secondary text-xs uppercase tracking-[0.2em]'>大小</p>
+						<div className='flex items-center gap-3 pt-2'>
+							<input
+								type='range'
+								min={SCALE_MIN}
+								max={SCALE_MAX}
+								step={SCALE_STEP}
+								value={scale}
+								onChange={(e) => handleScaleChange(Number(e.target.value))}
+								className='range-track'
+							/>
+							<span className='w-12 text-right text-sm font-medium'>{scale.toFixed(2)}×</span>
+						</div>
 					</div>
-				</div>
+
+					<div>
+						<p className='text-secondary text-xs uppercase tracking-[0.2em]'>动作</p>
+						<div className='flex flex-wrap gap-1.5 pt-2'>
+							{MOTION_GROUPS.map((group) => (
+								<motion.button
+									key={group.key}
+									type='button'
+									whileHover={{ scale: 1.05 }}
+									whileTap={{ scale: 0.95 }}
+									onClick={() => handleMotion(group.key)}
+									className='btn-rounded px-3 py-1.5 text-xs font-medium text-secondary transition-colors hover:bg-white/60 hover:text-brand'>
+									{group.label}
+								</motion.button>
+							))}
+						</div>
+					</div>
+				</motion.div>
 			)}
 		</div>
 	)
