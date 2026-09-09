@@ -33,6 +33,9 @@ export default function BlogPage() {
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 	const enableCategories = siteContent.enableCategories ?? false
+	const juejinUrl =
+		(siteContent.socialButtons || []).find(button => button.type === 'juejin')?.value ??
+		'https://juejin.cn/user/2367686052683515'
 
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const [editMode, setEditMode] = useState(false)
@@ -456,7 +459,7 @@ export default function BlogPage() {
 							animate={{ opacity: 1, scale: 1 }}
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
-							href='https://juejin.cn/user/2427311675422382/posts'
+							href={juejinUrl}
 							target='_blank'
 							className='card text-secondary static inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs'>
 							<JuejinSVG className='h-4 w-4' />
